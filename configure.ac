@@ -1230,7 +1230,7 @@ if test "$enable_windowsapp" = "yes" -a -z "$with_app_name"; then
    AC_MSG_ERROR([You must use --with-app-name])
 fi
 
-APP_NAME="Collabora Online Development Edition"
+APP_NAME="Bigby.office"
 if test -n "$with_app_name"; then
    APP_NAME="$with_app_name"
 fi
@@ -1450,8 +1450,8 @@ else
     WELCOME_CONFIG_FRAGMENT="<welcome>
       <enable type=\"bool\" desc=\"Controls whether the welcome screen should be shown to the users on new install and updates. When enabled, your custom welcome screen must be created at /usr/share/coolwsd/browser/dist/welcome/welcome.html.\" default=\"false\">false</enable>
     </welcome>"
-    CONFIG_INTERFACE_FRAGMENT="<brandProductName desc=\"Change the displayed name the application will have for the user.\" type=\"string\"></brandProductName>
-    <brandProductURL desc=\"Change the product URL, empty makes disable the link\" type=\"string\">https://www.collaboraonline.com</brandProductURL>
+    CONFIG_INTERFACE_FRAGMENT="<brandProductName desc=\"Change the displayed name the application will have for the user.\" type=\"string\">Bigby.office</brandProductName>
+    <brandProductURL desc=\"Change the product URL, empty makes disable the link\" type=\"string\">https://bigby.cloud</brandProductURL>
     <logoURL desc=\"Change the URL of the logo used by Collabora Online, use none to hide it.\" type=\"string\"></logoURL>"
 fi
 

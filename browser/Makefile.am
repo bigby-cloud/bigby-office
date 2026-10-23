@@ -1175,8 +1175,8 @@ build-cool: \
 	@echo "build cool completed"
 if APP_HAS_BRANDING
 	@if test -d "$(APP_BRANDING_DIR)" ; then cp -a "$(APP_BRANDING_DIR)"/branding* $(DIST_FOLDER)/ ; fi
-	@if test -d "$(APP_BRANDING_DIR)" ; then cp -a "$(APP_BRANDING_DIR)"/images/*.svg $(DIST_FOLDER)/images/ ; fi
-	@if test -d "$(APP_BRANDING_DIR)" ; then cp -a "$(APP_BRANDING_DIR)/images/toolbar-bg-logo.svg" $(DIST_FOLDER)/images/toolbar-bg.svg ; fi
+	@if test -d "$(APP_BRANDING_DIR)/images" ; then cp -a "$(APP_BRANDING_DIR)"/images/*.svg $(DIST_FOLDER)/images/ ; fi
+	@if test -f "$(APP_BRANDING_DIR)/images/toolbar-bg-logo.svg" ; then cp -a "$(APP_BRANDING_DIR)/images/toolbar-bg-logo.svg" $(DIST_FOLDER)/images/toolbar-bg.svg ; fi
 	@if test "$(ENABLE_QTAPP)" = true || test "$(ENABLE_MACOSAPP)" = true || test "$(ENABLE_WINDOWSAPP)" = true ; then \
 		if test -d "$(APP_BRANDING_DIR)/welcome" ; then cp -a "$(APP_BRANDING_DIR)/welcome" "$(DIST_FOLDER)/" ; fi ; \
 	fi

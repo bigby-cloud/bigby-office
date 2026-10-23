@@ -1,0 +1,28 @@
+/*
+ * Copyright the Bigby.office contributors.
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/* Bigby.office branding, loaded after the default styles. */
+
+:root,
+[data-theme='dark'] {
+	--color-primary: #007a7a;
+	--color-primary-text: #fff;
+	--color-primary-dark: #005050;
+	--color-primary-darker: #003c3c;
+	--color-primary-lighter: #7fbcbc;
+}
+
+.backstage-header-title::before {
+	background-image: url('branding-logo.png');
+}
+
+#product-logo {
+	background-image: url('branding-logo.png');
+}
