@@ -1091,8 +1091,7 @@ class PresenterConsole {
 				this._onPresentToAll();
 				break;
 			case 'help':
-				// TODO. add help.collaboraonline.com
-				window.open('https://collaboraonline.com', '_blank', 'noopener');
+				window.open('https://bigby.cloud', '_blank', 'noopener');
 				break;
 			case 'skip':
 				this._onSkipTransitions();

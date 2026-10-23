@@ -563,18 +563,6 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 					'type': 'toolbox',
 					'children': [
 						{
-							'id': 'forum',
-							'type': 'bigtoolitem',
-							'text': _('Forum'),
-							'command': '.uno:ForumHelp',
-							'accessibility': { focusBack: true, combination: 'C', de: null }
-						}
-					]
-				},
-				{
-					'type': 'toolbox',
-					'children': [
-						{
 							'id': 'report-an-issue',
 							'type': 'bigtoolitem',
 							'text': _('Report an issue'),
