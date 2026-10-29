@@ -1,135 +1,45 @@
-# Contributing to Collabora Online
+# Contributing to Bigby.office
 
-Thanks for taking the time to contribute! The following is a set of
-rules and guidelines for contributing to Collabora Online. Feel free
-to propose changes to this document via Gerrit.
+Thanks for taking the time to contribute. Bigby.office is built on
+Collabora Online, and most of the code here is theirs. Where a change
+should go depends on what it touches.
 
-## Submitting issues
+## Reporting issues
 
-If you have questions about how to install or use Collabora Online,
-please direct these to our [forum][forum]. If you have questions
-about Collabora Online development, you may join us on [Matrix][matrix]
-or [Telegram][telegram].
+For problems with Bigby.office or Bigby.cloud, use our
+[report form][report]. Please search the existing issues on this
+repository first, in case someone has already reported it.
 
-### Guidelines
+If you've found a security problem, tell us privately through the
+same form rather than opening a public issue.
 
-- Please search the existing issues first; it is likely that your
-  issue was already reported or even fixed.
-  - Go to the main page of the repository, click "issues", and type
-    any word in the top search/command bar.
-  - You can also filter by appending e.g. "state:open" to the search
-    string.
-  - More info on [search syntax within github][gh-search].
-- **SECURITY**: report any potential security bug to us following
-  our [security policy][secpolicy] instead of filing an issue in our
-  bug tracker.
-- [Report the issue][report] using one of our templates; they
-  include all the information we need to track down the issue.
-
-Help us to maximize the effort we can spend fixing issues and adding
-new features by not reporting duplicate issues.
-
-[report]: https://github.com/CollaboraOnline/online/issues/new/choose
-[forum]: https://forum.collaboraonline.com/
-[matrix]: https://matrix.to/#/#cool-dev:matrix.org
-[telegram]: https://t.me/CollaboraOnline
-[gh-search]: https://help.github.com/articles/searching-issues
-[secpolicy]: https://github.com/CollaboraOnline/online/security/policy
+[report]: https://bigby.cloud/report-an-issue/
 
 ## Contributing source code
 
-Thanks for wanting to contribute source code to Collabora Online.
+### Changes to Bigby.office
 
-Development and code review happen on our Gerrit instance at
-**https://gerrit.collaboraoffice.com**. Pull requests on GitHub will
-be automatically closed - please use Gerrit instead.
+Open a pull request against `main` on this repository. Keep each
+commit small and about one thing, and read [MAINTAINING.md][maintaining]
+first. It explains why we prefer configuration and the `branding/`
+folder to editing Collabora's files.
 
-### First-time setup
+[maintaining]: MAINTAINING.md
 
-For a guided setup that handles SSH key generation, Gerrit
-registration, cloning, and the engine + online build, run:
+### Changes that would help everyone
 
-```sh
-curl -fsSL "https://github.com/CollaboraOnline/online.mirror/raw/main/scripts/clone-online.sh" \
-    -o clone-online.sh
-chmod +x clone-online.sh
-./clone-online.sh
-```
+If a fix isn't specific to Bigby.office, it's better sent to
+Collabora. Everyone using Collabora Online gets it, and we don't have
+to carry it in our fork. Collabora take patches through their Gerrit
+server at https://gerrit.collaboraoffice.com, not through GitHub.
+Their [contributing guide][upstream] explains how.
 
-See [`scripts/clone-online.md`](scripts/clone-online.md) for the full
-walkthrough and flags.
-
-If you would rather set things up by hand:
-
-1. Sign in to Gerrit at https://gerrit.collaboraoffice.com with
-   your GitHub account.
-2. Add your SSH key at
-   https://gerrit.collaboraoffice.com/settings/#SSHKeys.
-3. Clone the repo:
-   ```bash
-   git clone ssh://YOUR_USERNAME@gerrit.collaboraoffice.com:29418/online
-   cd online
-   ```
-4. Build it ([on Linux][build-linux] or [on any platform][build-any]).
-
-[build-linux]: https://www.collaboraoffice.org/post/build-code/
-[build-any]: https://forum.collaboraonline.com/t/start-developing-cool-on-any-platform-in-5-minutes/52
-
-### Install the commit-msg hook
-
-After cloning (whether via the script or by hand), install Gerrit's
-commit-msg hook so every commit gets a Change-Id automatically:
-
-```bash
-scp -p -O -P 29418 YOUR_USERNAME@gerrit.collaboraoffice.com:hooks/commit-msg .git/hooks/
-```
-
-We use [Change-Ids][change-id] to track patches across rebases and
-amendments.
-
-[change-id]: https://gerrit-review.googlesource.com/Documentation/user-changeid.html
-
-### Pick something to work on
-
-Grab one of our newcomer-friendly [easy hacks][easyhacks].
-
-[easyhacks]: https://www.collaboraoffice.org/post/easyhacks/
-
-### Submitting a patch
-
-You can develop as normal and push your commits to Gerrit:
-
-```bash
-git push origin HEAD:refs/for/main
-```
-
-When you submit multiple patches at the same time, please consider
-pushing like this:
-
-```bash
-git push origin HEAD~1:refs/for/main%wip
-git push origin HEAD:refs/for/main
-```
-
-Or equivalently, using our convenience script:
-
-```sh
-./g review
-```
-
-This way only the last patch triggers CI. Once CI passes on the top
-commit, remove the WIP flag and add Verified +1 yourself to the rest
-of the patches.
-
-If you get stuck at any point, drop by one of our
-[communication channels][channels].
-
-[channels]: https://www.collaboraoffice.org/post/communicate/
+[upstream]: https://github.com/CollaboraOnline/online.mirror/blob/main/CONTRIBUTING.md
 
 ### Sign your work
 
 We use the Developer Certificate of Origin (DCO) as an additional
-safeguard for the Collabora Online project. This is a well
+safeguard for the Bigby.office project. This is a well
 established and widely used mechanism to assure contributors have
 confirmed their right to license their contribution under the
 project's license.
@@ -224,9 +134,9 @@ The style is roughly as follows, in rough order of importance:
 
 #### C++
 
-- As in Collabora Office, no hard TABs in source files. Only spaces.
+- As in the engine, no hard TABs in source files. Only spaces.
   Indentation step is four columns.
-- As in Collabora Office, the braces `{` and `}` of the block of `if`,
+- As in the engine, the braces `{` and `}` of the block of `if`,
   `switch`, and `while` statements go on separate lines.
 - Following Poco conventions, non-static member variables are
   prefixed with an underscore. Static members have a CamelCase name.
@@ -261,21 +171,8 @@ The style is roughly as follows, in rough order of importance:
 ### Security credential related changes
 
 - Instead of the usual one, two reviews are needed.
-- Instead of just choosing the 'approve' option on Gerrit, please
-  add your explicit sign-off to the commit message when you review.
-
-### For non-technical people
-
-Hello, and thanks for stopping by! If you want to work on something
-like an icon or a label fix but are not comfortable with the command
-line, you can still contribute via GitHub:
-
-1. [Fork the repo][fork] and make your changes.
-2. Instead of opening a pull request, reach out to us on one of our
-   [communication channels][channels] and a developer will help you
-   submit the patch via Gerrit.
-
-[fork]: https://github.com/CollaboraOnline/online/fork
+- Instead of just approving the pull request, please add your
+  explicit sign-off to the commit message when you review.
 
 ### AI policy
 
@@ -291,6 +188,7 @@ forbidden.
 
 ## Translations
 
-Please submit translations via [Weblate][weblate].
+Translations come from Collabora. Please submit them through their
+[Weblate project][weblate].
 
 [weblate]: https://hosted.weblate.org/projects/collabora-online

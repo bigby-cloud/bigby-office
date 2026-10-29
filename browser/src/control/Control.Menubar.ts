@@ -454,7 +454,6 @@ class Menubar extends window.L.Control {
 				{type: 'separator', iosapp: false},
 				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{type: 'separator'},
-				{name: _('Forum'), id: 'forum', type: 'action'},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
 				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
 				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
@@ -668,7 +667,6 @@ class Menubar extends window.L.Control {
 				{type: 'separator', iosapp: false},
 				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{type: 'separator'},
-				{name: _('Forum'), id: 'forum', type: 'action'},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
 				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
 				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
@@ -836,7 +834,6 @@ class Menubar extends window.L.Control {
 				{type: 'separator', iosapp: false},
 				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{type: 'separator'},
-				{name: _('Forum'), id: 'forum', type: 'action'},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
 				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
 				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
@@ -1154,7 +1151,6 @@ class Menubar extends window.L.Control {
 				{type: 'separator', iosapp: false},
 				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{type: 'separator'},
-				{name: _('Forum'), id: 'forum', type: 'action'},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
 				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
 				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
@@ -2749,9 +2745,7 @@ class Menubar extends window.L.Control {
 		} else if (id === 'feedback' && this._map.feedback) {
 			this._map.feedback.showFeedbackDialog();
 		} else if (id === 'report-an-issue') {
-			window.open('https://github.com/CollaboraOnline/online/issues', '_blank', 'noopener');
-		} else if (id === 'forum') {
-			window.open('https://forum.collaboraonline.com', '_blank', 'noopener');
+			window.open('https://bigby.cloud/report-an-issue/', '_blank', 'noopener');
 		} else if (id === 'inserthyperlink') {
 			app.dispatcher.dispatch('hyperlinkdialog');
 		} else if (id === 'keyboard-shortcuts' || id === 'online-help') {
