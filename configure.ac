@@ -75,7 +75,7 @@ AC_SUBST([COOLWSD_VERSION_NANO])
 AC_SUBST([COOLWSD_VERSION_BUILD_ID])
 AC_SUBST([COOLWSD_VERSION])
 
-AC_DEFINE_UNQUOTED([COOLWSD_VERSION],[["$COOLWSD_VERSION"]],[Collabora Online WebSocket server version])
+AC_DEFINE_UNQUOTED([COOLWSD_VERSION],[["$COOLWSD_VERSION"]],[Bigby.office WebSocket server version])
 
 # try to add a git hash for a version if we're developing
 COOLWSD_VERSION_HASH="$COOLWSD_VERSION"
@@ -85,7 +85,7 @@ if test "z$git_hash" != "z"; then
 fi
 AC_SUBST([COOLWSD_VERSION_HASH])
 
-AC_DEFINE_UNQUOTED([COOLWSD_VERSION_HASH],[["$COOLWSD_VERSION_HASH"]],[Collabora Online git hash if present])
+AC_DEFINE_UNQUOTED([COOLWSD_VERSION_HASH],[["$COOLWSD_VERSION_HASH"]],[Bigby.office git hash if present])
 
 AC_CONFIG_SRCDIR([wsd/COOLWSD.cpp])
 
@@ -256,7 +256,7 @@ AC_ARG_WITH([wasm-fallback],
 AC_ARG_WITH([wasm-additional-files],
               AS_HELP_STRING([--with-wasm-additional-files=<path>],
                              [Add more files to the in-memory WASM file system in online.wasm in addition to the ones from the WASM
-                              build of Collabora Office. The files will be available in the WASM in-memory file system as pathnames
+                              build of the engine. The files will be available in the WASM in-memory file system as pathnames
                               stripping the initial prefix <path> where they are on the build system. For instance, if you give
                               --with-wasm-additional-files=$HOME/our-sample-docs, and there is a file $HOME/our-sample-docs/temp/test.docx,
                               that will be available in the online.wasm as /temp/test.docx.]))
@@ -400,8 +400,8 @@ AC_ARG_WITH([lokit-path],
 
 AC_ARG_WITH([lo-path],
             AS_HELP_STRING([--with-lo-path=<path>],
-                           [For Collabora Online, the path to a working installation directory
-                           or instdir of Collabora Office, to be used at run-time.
+                           [For Bigby.office, the path to a working installation directory
+                           or instdir of the engine, to be used at run-time.
                            Overrides the value derived from --with-lo-builddir.
 
                            For CODA-W, a *Windows* format path to the core build instdir, used at build-time.
@@ -411,19 +411,19 @@ AC_ARG_WITH([lo-path],
 AC_ARG_WITH([lo-sourcedir],
             AS_HELP_STRING([--with-lo-sourcedir=<path>],
                            [Mandatory, and relevant, only for a Wasm build.
-                            Path to a CollaboraOffice core source tree.]))
+                            Path to an engine source tree.]))
 
 AC_ARG_WITH([lo-builddir],
             AS_HELP_STRING([--with-lo-builddir=<path>],
-                           [Path to the CollaboraOffice (engine) build tree.
+                           [Path to the engine build tree.
                             For desktop/server builds, sets --with-lokit-path
                             (to <path>/include) and --with-lo-path (to <path>/instdir)
                             unless those are given explicitly.
                             For mobile/CODA builds, this is the path to the build directory of
-                            the CollaboraOffice core source tree you want to use.
+                            the engine source tree you want to use.
                             In case of macOS, you MUST manually edit the ios/Mobile.xcodeproj/project.pbxproj
                             file and change the references to "../ios-device" to refer to the corresponding
-                            CollaboraOffice core source directory (which typically would be the same as the build
+                            engine source directory (which typically would be the same as the build
                             directory you specify with this option).
 
                             For Android, if building for multiple ABIs, you should specify multiple trees in the
@@ -905,14 +905,14 @@ if test \( "$enable_iosapp" = "yes" -a `uname -s` = "Darwin" \) -o \( "$enable_w
    fi
 
    if test "$host_os" = emscripten; then
-      AC_MSG_CHECKING([for CollaboraOffice source tree to build against])
+      AC_MSG_CHECKING([for engine source tree to build against])
       if test -z "$with_lo_sourcedir"; then
          AC_MSG_ERROR([You MUST use the --with-lo-sourcedir option when configuring a Wasm build.])
       fi
       LOSOURCEDIR=$(readlink -f "$with_lo_sourcedir")
    fi
 
-   AC_MSG_CHECKING([for CollaboraOffice build tree to build against])
+   AC_MSG_CHECKING([for engine build tree to build against])
    if test -z "$with_lo_builddir"; then
       AC_MSG_ERROR([You MUST use the --with-lo-builddir option when configuring the mobile or Windows app build tree.])
    fi
@@ -953,14 +953,14 @@ if test \( "$enable_iosapp" = "yes" -a `uname -s` = "Darwin" \) -o \( "$enable_w
    if test -f "$LOBUILDDIR/instdir/program/$setuprc"; then
       AC_MSG_RESULT([$LOBUILDDIR])
    else
-      AC_MSG_ERROR([This is not a CollaboraOffice core build directory: $LOBUILDDIR])
+      AC_MSG_ERROR([This is not an engine build directory: $LOBUILDDIR])
    fi
 
    if test -n "$LOBUILDDIR_ARM64_V8A" ; then
       if test -f "$LOBUILDDIR_ARM64_V8A/workdir/LinkTarget/StaticLibrary/liblibpng.a" ; then
          AC_MSG_RESULT([$LOBUILDDIR_ARM64_V8A])
       else
-         AC_MSG_ERROR([This is not a CollaboraOffice ARM64 core build directory: $LOBUILDDIR_ARM64_V8A])
+         AC_MSG_ERROR([This is not an engine ARM64 build directory: $LOBUILDDIR_ARM64_V8A])
       fi
    fi
 
@@ -968,7 +968,7 @@ if test \( "$enable_iosapp" = "yes" -a `uname -s` = "Darwin" \) -o \( "$enable_w
       if test -f "$LOBUILDDIR_X86/workdir/LinkTarget/StaticLibrary/liblibpng.a" ; then
          AC_MSG_RESULT([$LOBUILDDIR_X86])
       else
-         AC_MSG_ERROR([This is not a CollaboraOffice x86 core build directory: $LOBUILDDIR_X86])
+         AC_MSG_ERROR([This is not an engine x86 build directory: $LOBUILDDIR_X86])
       fi
    fi
 
@@ -976,7 +976,7 @@ if test \( "$enable_iosapp" = "yes" -a `uname -s` = "Darwin" \) -o \( "$enable_w
       if test -f "$LOBUILDDIR_X86_64/workdir/LinkTarget/StaticLibrary/liblibpng.a" ; then
          AC_MSG_RESULT([$LOBUILDDIR_X86_64])
       else
-         AC_MSG_ERROR([This is not a CollaboraOffice x86-64 core build directory: $LOBUILDDIR_X86_64])
+         AC_MSG_ERROR([This is not an engine x86-64 build directory: $LOBUILDDIR_X86_64])
       fi
    fi
 
@@ -1158,7 +1158,7 @@ if test "$enable_macosapp" = "yes"; then
    AC_MSG_CHECKING([for libpng built in the engine])
    LIBPNG_INCLUDES="$engine_builddir/workdir/UnpackedTarball/libpng"
    LIBPNG_LIBS="$engine_builddir/workdir/LinkTarget/StaticLibrary"
-   # CollaboraOffice builds libpng as liblibpng.a (double "lib" prefix).
+   # The engine builds libpng as liblibpng.a (double "lib" prefix).
    LIBPNG_STATIC_LIB="liblibpng.a"
    AC_MSG_RESULT([$LIBPNG_LIBS])
    CHK_FILE_VAR(LIBPNG_INCLUDES,png.h,png.h include)
@@ -1452,7 +1452,7 @@ else
     </welcome>"
     CONFIG_INTERFACE_FRAGMENT="<brandProductName desc=\"Change the displayed name the application will have for the user.\" type=\"string\">Bigby.office</brandProductName>
     <brandProductURL desc=\"Change the product URL, empty makes disable the link\" type=\"string\">https://bigby.cloud</brandProductURL>
-    <logoURL desc=\"Change the URL of the logo used by Collabora Online, use none to hide it.\" type=\"string\"></logoURL>"
+    <logoURL desc=\"Change the URL of the logo used by Bigby.office, use none to hide it.\" type=\"string\"></logoURL>"
 fi
 
 AC_SUBST([WELCOME_CONFIG_FRAGMENT])
@@ -1871,7 +1871,7 @@ AS_IF([test -n "$LOKIT_PATH"],
 lokit_msg="$LOKIT_PATH"
 
 AS_IF([test "$ENABLE_IOSAPP" != "true" -a "$ENABLE_ANDROIDAPP" != "true"],
-      [AC_MSG_CHECKING([for CollaboraOffice path])
+      [AC_MSG_CHECKING([for engine path])
       if test -n "$with_lo_path"; then
           # strip trailing '/' from LO_PATH, 'ln -s' with such path will otherwise fail
           if test "$ENABLE_WINDOWSAPP" != "true"; then
@@ -1886,7 +1886,7 @@ AS_IF([test "$ENABLE_IOSAPP" != "true" -a "$ENABLE_ANDROIDAPP" != "true"],
               fi
           else
               # LO_PATH is the path used at run-time to find the
-              # CollaboraOffice shared libraries. When running configure
+              # engine shared libraries. When running configure
               # for CODA-W, LO_PATH will be used only at compilation
               # time. Thus it should be a Windows path and not a WSL
               # one. Additionally, because it is used by the Visual
@@ -1898,13 +1898,13 @@ AS_IF([test "$ENABLE_IOSAPP" != "true" -a "$ENABLE_ANDROIDAPP" != "true"],
       else
           AC_MSG_RESULT([not given])
           AS_IF([test "$LIBFUZZER" != "1"],
-                [AC_MSG_ERROR([CollaboraOffice path must be configured: --with-lo-path])])
+                [AC_MSG_ERROR([Engine path must be configured: --with-lo-path])])
       fi
       ])
 
 SYSTEMPLATE_PATH=not-set
 have_lo_path=false
-AC_MSG_CHECKING([whether to run tests against a CollaboraOffice])
+AC_MSG_CHECKING([whether to run tests against an engine])
 if test -n "$with_lo_path"; then
     if test `uname -s` = Darwin; then
         version_file="$with_lo_path/Contents/Resources/versionrc"
@@ -1949,7 +1949,7 @@ if test "$enable_macosapp" = "yes" ; then
 fi
 
 AC_SUBST(LO_PATH)
-AC_DEFINE_UNQUOTED([LO_PATH],["$LO_PATH"],[Path to CollaboraOffice installation])
+AC_DEFINE_UNQUOTED([LO_PATH],["$LO_PATH"],[Path to engine installation])
 AC_SUBST(JAILS_PATH)
 AC_SUBST(CACHE_PATH)
 AC_SUBST(SYSTEMPLATE_PATH)
@@ -3016,7 +3016,7 @@ AS_IF([test "$ENABLE_IOSAPP" = "true"],
        if test `uname -s` = "Darwin"; then
           # Sadly I can't figure out any better way to avoid having to
           # edit the Xcode project file manually. Create symlinks to the
-          # CollaboraOffice core source and build trees, and to the Poco
+          # engine source and build trees, and to the Poco
           # installation.
 
           AC_MSG_NOTICE([creating symbolic links for the Xcode project to use])
